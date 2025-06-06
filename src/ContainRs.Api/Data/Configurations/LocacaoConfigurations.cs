@@ -11,7 +11,7 @@ public class LocacaoConfigurations : IEntityTypeConfiguration<Locacao>
         builder.OwnsOne(locacao => locacao.Status, status =>
         {
             status.Property(s => s.Status)
-                .HasColumnName("Status")
+                .HasColumnName("Situacao")
                 .HasConversion<string>();
         });
 

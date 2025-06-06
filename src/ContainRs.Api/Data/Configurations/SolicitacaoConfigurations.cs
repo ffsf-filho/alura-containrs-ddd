@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ContainRs.Api.Data.Configurations;
 
-public class SolicitacaoConfigurations : IEntityTypeConfiguration<Solicitacao>
+public class SolicitacaoConfigurations : IEntityTypeConfiguration<PedidoLocacao>
 {
-    public void Configure(EntityTypeBuilder<Solicitacao> builder)
+    public void Configure(EntityTypeBuilder<PedidoLocacao> builder)
     {
         builder.OwnsOne(s => s.Status, status =>
         {
             status.Property(s => s.Status)
-                .HasColumnName("Status")
+                .HasColumnName("Situacao")
                 .HasConversion<string>();
         });
     }

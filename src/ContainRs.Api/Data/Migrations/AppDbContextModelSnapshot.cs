@@ -58,7 +58,7 @@ namespace ContainRs.Api.Data.Migrations
                     b.Property<string>("Observacoes")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Status")
+                    b.Property<string>("Situacao")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -128,7 +128,7 @@ namespace ContainRs.Api.Data.Migrations
                     b.ToTable("Propostas", (string)null);
                 });
 
-            modelBuilder.Entity("ContainRs.Api.Domain.Solicitacao", b =>
+            modelBuilder.Entity("ContainRs.Api.Domain.PedidoLocacao", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -251,15 +251,15 @@ namespace ContainRs.Api.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("ContainRs.Api.Domain.StatusLocacao", "Status", b1 =>
+                    b.OwnsOne("ContainRs.Api.Domain.StatusLocacao", "Situacao", b1 =>
                         {
                             b1.Property<Guid>("LocacaoId")
                                 .HasColumnType("uniqueidentifier");
 
-                            b1.Property<string>("Status")
+                            b1.Property<string>("Situacao")
                                 .IsRequired()
                                 .HasColumnType("nvarchar(max)")
-                                .HasColumnName("Status");
+                                .HasColumnName("Situacao");
 
                             b1.HasKey("LocacaoId");
 
@@ -271,27 +271,27 @@ namespace ContainRs.Api.Data.Migrations
 
                     b.Navigation("Proposta");
 
-                    b.Navigation("Status")
+                    b.Navigation("Situacao")
                         .IsRequired();
                 });
 
             modelBuilder.Entity("ContainRs.Api.Domain.Proposta", b =>
                 {
-                    b.HasOne("ContainRs.Api.Domain.Solicitacao", "Solicitacao")
+                    b.HasOne("ContainRs.Api.Domain.PedidoLocacao", "PedidoLocacao")
                         .WithMany("Propostas")
                         .HasForeignKey("SolicitacaoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("ContainRs.Api.Domain.StatusProposta", "Status", b1 =>
+                    b.OwnsOne("ContainRs.Api.Domain.SituacaoProposta", "Situacao", b1 =>
                         {
                             b1.Property<Guid>("PropostaId")
                                 .HasColumnType("uniqueidentifier");
 
-                            b1.Property<string>("Status")
+                            b1.Property<string>("Situacao")
                                 .IsRequired()
                                 .HasColumnType("nvarchar(max)")
-                                .HasColumnName("Status");
+                                .HasColumnName("Situacao");
 
                             b1.HasKey("PropostaId");
 
@@ -301,13 +301,13 @@ namespace ContainRs.Api.Data.Migrations
                                 .HasForeignKey("PropostaId");
                         });
 
-                    b.Navigation("Solicitacao");
+                    b.Navigation("PedidoLocacao");
 
-                    b.Navigation("Status")
+                    b.Navigation("Situacao")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ContainRs.Api.Domain.Solicitacao", b =>
+            modelBuilder.Entity("ContainRs.Api.Domain.PedidoLocacao", b =>
                 {
                     b.HasOne("ContainRs.Domain.Models.Endereco", "Localizacao")
                         .WithMany()
@@ -315,15 +315,15 @@ namespace ContainRs.Api.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("ContainRs.Api.Domain.StatusSolicitacao", "Status", b1 =>
+                    b.OwnsOne("ContainRs.Api.Domain.StatusPedido", "Situacao", b1 =>
                         {
                             b1.Property<Guid>("SolicitacaoId")
                                 .HasColumnType("uniqueidentifier");
 
-                            b1.Property<string>("Status")
+                            b1.Property<string>("Situacao")
                                 .IsRequired()
                                 .HasColumnType("nvarchar(max)")
-                                .HasColumnName("Status");
+                                .HasColumnName("Situacao");
 
                             b1.HasKey("SolicitacaoId");
 
@@ -335,7 +335,7 @@ namespace ContainRs.Api.Data.Migrations
 
                     b.Navigation("Localizacao");
 
-                    b.Navigation("Status")
+                    b.Navigation("Situacao")
                         .IsRequired();
                 });
 
@@ -379,7 +379,7 @@ namespace ContainRs.Api.Data.Migrations
                     b.Navigation("Comentarios");
                 });
 
-            modelBuilder.Entity("ContainRs.Api.Domain.Solicitacao", b =>
+            modelBuilder.Entity("ContainRs.Api.Domain.PedidoLocacao", b =>
                 {
                     b.Navigation("Propostas");
                 });
