@@ -121,35 +121,15 @@ public static class PropostasEndpoints
         builder.MapPatch("{id:guid}/proposals/{propostaId:guid}/accept", async (
             [FromRoute] Guid id,
             [FromRoute] Guid propostaId,
-            [FromServices] IRepository<Proposta> repoProposta,
-            [FromServices] IRepository<Locacao> repoLocacao) =>
+            [FromServices] IPropostaService service) =>
         {
+            var casoUso = new AprovarProposta(id, propostaId);
+            var proposta = await service.AprovarAsync(casoUso);
 
-            var proposta = await repoProposta
-                .GetFirstAsync(
-                    p => p.Id == propostaId && p.SolicitacaoId == id,
-                    p => p.Id);
-            if (proposta is null) return Results.NotFound();
+            if (proposta is null)
+                return Results.NotFound();
 
-            proposta.Situacao = SituacaoProposta.Aceita;
-
-            // criar locação a partir da proposta aceita
-            var locacao = new Locacao()
-            {
-                PropostaId = proposta.Id,
-                DataInicio = DateTime.Now,
-                DataPrevistaEntrega = proposta.Solicitacao.DataInicioOperacao.AddDays(-proposta.Solicitacao.DisponibilidadePrevia),
-                DataTermino = proposta.Solicitacao.DataInicioOperacao.AddDays(proposta.Solicitacao.DuracaoPrevistaLocacao)
-            };
-
-            using var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
-
-            await repoProposta.UpdateAsync(proposta);
-            await repoLocacao.AddAsync(locacao);
-
-            scope.Complete();
-
-            return Results.Ok(PropostaResponse.From(proposta));
+            return Results.Ok(PropostaResponse.From(proposta!));
         })
         .WithSummary("Cliente aceita proposta de locação.")
         .RequireAuthorization(policy => policy.RequireRole("Cliente"))
