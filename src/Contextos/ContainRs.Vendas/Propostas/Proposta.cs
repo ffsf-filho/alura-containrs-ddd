@@ -38,12 +38,27 @@ public class Proposta
 
     public Comentario AddComentario(Comentario comentario)
     {
-        Comentarios.Add(comentario);
+        if(Situacao == SituacaoProposta.Enviada)
+        {
+            Comentarios.Add(comentario);
+        }
+
         return comentario;
     }
 
     public void RemoveComentario(Comentario comentario)
     {
         Comentarios.Remove(comentario);
+    }
+
+    public bool Aprovar()
+    {
+        if(Situacao != SituacaoProposta.Enviada)
+        { 
+            return false; 
+        }
+     
+        Situacao = SituacaoProposta.Aceita;
+        return true;
     }
 }

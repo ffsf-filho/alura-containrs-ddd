@@ -2,6 +2,7 @@
 using ContainRs.Vendas.Locacoes;
 using Microsoft.AspNetCore.Mvc;
 using System.Transactions;
+using System.Xml.Serialization;
 
 namespace ContainRs.Vendas.Propostas;
 
@@ -173,29 +174,17 @@ public static class PropostasEndpoints
             [FromRoute] Guid propostaId,
             [FromBody] ComentarioRequest request,
             HttpContext context,
-            [FromServices] IRepository<Proposta> repository) =>
+            [FromServices] IPropostaService service) =>
         {
-
-            var proposta = await repository
-                .GetFirstAsync(
-                    p => p.Id == propostaId && p.SolicitacaoId == id,
-                    p => p.Id);
-            if (proposta is null) return Results.NotFound();
-
             string? quem = context.User.Identity?.Name;
-            if (quem is null) return Results.Unauthorized();
+            
+            if (quem is null) 
+                return Results.Unauthorized();
 
-            proposta.AddComentario(new Comentario()
-            {
-                Id = Guid.NewGuid(),
-                Data = DateTime.Now,
-                Usuario = quem,
-                Texto = request.Comentario
-            });
+            var comentario = new ComentarProposta(id, propostaId, request.Comentario, quem);
+            var proposta = await service.ComentarAsync(comentario);
 
-            await repository.UpdateAsync(proposta);
-
-            return Results.Ok(PropostaResponse.From(proposta));
+            return Results.Ok(PropostaResponse.From(proposta!));
         })
         .WithSummary("Vendedor/Cliente comenta proposta.")
         .RequireAuthorization(policy => policy.RequireRole("Cliente", "Suporte"))
