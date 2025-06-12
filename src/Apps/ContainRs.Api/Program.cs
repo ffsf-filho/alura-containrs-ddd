@@ -30,6 +30,7 @@ builder.Services.AddScoped<IRepository<Locacao>, LocacaoRepository>();
 builder.Services.AddScoped<IRepository<Conteiner>, ConteinerRepository>();
 builder.Services.AddScoped<IAcessoManager, AcessoManagerWithIdentity>();
 builder.Services.AddScoped<IPropostaService, PropostaService>();
+builder.Services.AddScoped<ICalculadoraPrazosLocacao, CalculadoraPadraoPrazosLocacao>();
 
 builder.Services
     .AddIdentityApiEndpoints<AppUser>(options => options.SignIn.RequireConfirmedEmail = true)

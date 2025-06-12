@@ -4,10 +4,11 @@ using System.Transactions;
 
 namespace ContainRs.Vendas.Propostas;
 
-public class PropostaService(IRepository<Proposta> repoProprosta, IRepository<Locacao> repoLocacaso) : IPropostaService
+public class PropostaService(IRepository<Proposta> repoProprosta, IRepository<Locacao> repoLocacaso, ICalculadoraPrazosLocacao calculadora) : IPropostaService
 {
     private readonly IRepository<Proposta> _repoProposta = repoProprosta;
     private readonly IRepository<Locacao> _repoLocacao = repoLocacaso;
+    private readonly ICalculadoraPrazosLocacao _calculadora = calculadora;
 
     public async Task<Proposta?> AprovarAsync(AprovarProposta comando)
     {
@@ -26,8 +27,8 @@ public class PropostaService(IRepository<Proposta> repoProprosta, IRepository<Lo
             {
                 PropostaId = proposta.Id,
                 DataInicio = DateTime.Now,
-                DataPrevistaEntrega = proposta.Solicitacao.DataInicioOperacao.AddDays(-proposta.Solicitacao.DisponibilidadePrevia),
-                DataTermino = proposta.Solicitacao.DataInicioOperacao.AddDays(proposta.Solicitacao.DuracaoPrevistaLocacao)
+                DataPrevistaEntrega = _calculadora.CalculaDataPrevistaParaEntrega(proposta),
+                DataTermino = _calculadora.CalculaDataPrevistaParaTermino(proposta)
             };
 
             using var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
