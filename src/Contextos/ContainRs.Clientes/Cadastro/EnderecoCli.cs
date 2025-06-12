@@ -1,8 +1,11 @@
-﻿namespace ContainRs.Clientes.Cadastro;
+﻿using System.ComponentModel.DataAnnotations;
 
-public class Endereco
+namespace ContainRs.Clientes.Cadastro;
+
+public class EnderecoCli
 {
-    public Endereco() { }
+    public EnderecoCli() { }
+    [Key]
     public Guid Id { get; set; }
     public string? Nome { get; set; }
     public string CEP { get; set; }

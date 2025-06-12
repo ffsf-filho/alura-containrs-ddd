@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContainRs.Engenharia", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContainRs.Financeiro", "src\Contextos\ContainRs.Financeiro\ContainRs.Financeiro.csproj", "{3C0B2617-CF0B-A222-C8EB-7D42E3823519}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContainRs.DDD", "src\ContainRs.DDD\ContainRs.DDD.csproj", "{A2D1CFD2-17EF-4A3C-8C85-AB2FDE025EBA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{3C0B2617-CF0B-A222-C8EB-7D42E3823519}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C0B2617-CF0B-A222-C8EB-7D42E3823519}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C0B2617-CF0B-A222-C8EB-7D42E3823519}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2D1CFD2-17EF-4A3C-8C85-AB2FDE025EBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2D1CFD2-17EF-4A3C-8C85-AB2FDE025EBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2D1CFD2-17EF-4A3C-8C85-AB2FDE025EBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2D1CFD2-17EF-4A3C-8C85-AB2FDE025EBA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,6 +89,7 @@ Global
 		{6168ECCE-D560-4773-974C-25FF0A9220CB} = {7F41E667-74B5-4D39-96A5-99AD126304AA}
 		{2E7F7594-34AA-22B4-F7FA-61312CD2B869} = {7F41E667-74B5-4D39-96A5-99AD126304AA}
 		{3C0B2617-CF0B-A222-C8EB-7D42E3823519} = {7F41E667-74B5-4D39-96A5-99AD126304AA}
+		{A2D1CFD2-17EF-4A3C-8C85-AB2FDE025EBA} = {BB5080F2-2FC9-4936-ADFC-85CBC6E32928}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DC479B39-0170-466F-A7C1-258D9F3761B2}

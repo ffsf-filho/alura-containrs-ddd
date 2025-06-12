@@ -2,4 +2,4 @@
 global using ContainRs.Vendas.Propostas;
 global using ContainRs.Clientes.Cadastro;
 global using ContainRs.Contracts;
-global using EnderecoCli = ContainRs.Clientes.Cadastro.Endereco;
+//global using EnderecoCli = ContainRs.Clientes.Cadastro.Endereco;

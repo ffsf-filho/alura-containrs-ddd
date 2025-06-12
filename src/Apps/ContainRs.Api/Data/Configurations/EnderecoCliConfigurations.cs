@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ContainRs.Api.Data.Configurations;
 
-public class EnderecoConfigurations : IEntityTypeConfiguration<EnderecoCli>
+public class EnderecoCliConfigurations : IEntityTypeConfiguration<EnderecoCli>
 {
     public void Configure(EntityTypeBuilder<EnderecoCli> builder)
     {

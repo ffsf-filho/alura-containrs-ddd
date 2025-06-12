@@ -1,4 +1,6 @@
-﻿namespace ContainRs.Vendas.Propostas;
+﻿using ContainRs.DDD;
+
+namespace ContainRs.Vendas.Propostas;
 
 public record SituacaoProposta(string Status)
 {
@@ -22,9 +24,12 @@ public record SituacaoProposta(string Status)
     }
 }
 
-public class Proposta
+public class Proposta : IAgreggateRoot
 {
-    public Proposta() { }
+    public Proposta() { 
+        Events = [];
+    }
+    public ICollection<IDomainEvent> Events { get;}
     public Guid Id { get; set; }
     public SituacaoProposta Situacao { get; set; } = SituacaoProposta.Enviada;
     public ValorMonetario ValorTotal { get; set; }
@@ -59,6 +64,9 @@ public class Proposta
         }
      
         Situacao = SituacaoProposta.Aceita;
+
+        Events.Add(new PropostaAprovada(Id, ValorTotal.Valor));
+
         return true;
     }
 }

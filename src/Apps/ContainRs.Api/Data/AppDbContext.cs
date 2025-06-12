@@ -1,4 +1,5 @@
 ﻿using ContainRs.Api.Domain;
+using ContainRs.Api.Events;
 using Microsoft.EntityFrameworkCore;
 
 namespace ContainRs.Api.Data;
@@ -10,10 +11,11 @@ public class AppDbContext : DbContext
     }
 
     public DbSet<Cliente> Clientes { get; set; }
-    public DbSet<PedidoLocacao> Solicitacoes { get; set; }
+    public DbSet<PedidoLocacao> Solicitacoes { get; set; }//aqui esta diferente
     public DbSet<Proposta> Propostas { get; set; }
     public DbSet<Locacao> Locacoes { get; set; }
     public DbSet<Conteiner> Conteineres { get; set; }
+    public DbSet<OutboxMessage> Outbox { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

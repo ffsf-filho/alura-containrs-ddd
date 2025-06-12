@@ -18,7 +18,7 @@ public class EnderecoRequest
     public string? Estado { get; set; }
     public string? Nome { get; set; }
 
-    public Endereco ToModel() => new()
+    public EnderecoCli ToModel() => new()
     {
         CEP = CEP,
         Rua = Rua!,
