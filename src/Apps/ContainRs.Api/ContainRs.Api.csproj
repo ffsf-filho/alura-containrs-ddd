@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\ContainRs.Contracts\ContainRs.Contracts.csproj" />
+    <ProjectReference Include="..\..\ContainRs.DDD\ContainRs.DDD.csproj" />
     <ProjectReference Include="..\..\Contextos\ContainRs.Clientes\ContainRs.Clientes.csproj" />
     <ProjectReference Include="..\..\Contextos\ContainRs.Vendas\ContainRs.Vendas.csproj" />
   </ItemGroup>

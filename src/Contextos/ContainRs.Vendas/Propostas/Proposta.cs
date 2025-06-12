@@ -69,4 +69,9 @@ public class Proposta : IAgreggateRoot
 
         return true;
     }
+
+    public void RemoverEventos()
+    {
+        Events.Clear();
+    }
 }
