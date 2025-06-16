@@ -1,6 +1,4 @@
-﻿using ContainRs.Api.Events;
-
-namespace ContainRs.Api;
+﻿namespace ContainRs.Api.Events;
 
 public class InboxMessage
 {

@@ -2,7 +2,10 @@ using ContainRs.Api.Containeres;
 using ContainRs.Api.Data;
 using ContainRs.Api.Data.Repositories;
 using ContainRs.Api.Domain;
+using ContainRs.Api.Events;
 using ContainRs.Api.Identity;
+using ContainRs.Financeiro.Faturamento;
+using Hangfire;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,6 +31,8 @@ builder.Services.AddScoped<IRepository<PedidoLocacao>, SolicitacaoRepository>();
 builder.Services.AddScoped<IRepository<Proposta>, PropostaRepository>();
 builder.Services.AddScoped<IRepository<Locacao>, LocacaoRepository>();
 builder.Services.AddScoped<IRepository<Conteiner>, ConteinerRepository>();
+builder.Services.AddScoped<IRepository<Fatura>, FaturaRepository>();
+builder.Services.AddScoped<IEventoManager, EventoManager>();
 builder.Services.AddScoped<IAcessoManager, AcessoManagerWithIdentity>();
 builder.Services.AddScoped<IPropostaService, PropostaService>();
 builder.Services.AddScoped<ICalculadoraPrazosLocacao, CalculadoraPadraoPrazosLocacao>();
@@ -43,6 +48,12 @@ builder.Services.Configure<IdentityOptions>(options =>
 {
     options.ClaimsIdentity.UserIdClaimType = "ClienteId";
 });
+
+builder.Services.AddHangfire(config =>
+{
+        config.UseSqlServerStorage(builder.Configuration.GetConnectionString("ContainRsDB"));
+})
+.AddHangfireServer(options => options.SchedulePollingInterval = TimeSpan.FromSeconds(5));
 
 var app = builder.Build();
 
@@ -65,4 +76,12 @@ app
     .MapLocacoesEndpoints()
     .MapConteineresEndpoints();
 
+//emissoDeFaturas
+app.Services
+    .GetRequiredService<IRecurringJobManager>()
+    .AddOrUpdate<EmissorDeFaturas>(
+        nameof(EmissorDeFaturas),
+        job => job.ExecutarAsync(),
+        Cron.Minutely
+    );
 app.Run();
