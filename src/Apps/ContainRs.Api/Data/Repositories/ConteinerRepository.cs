@@ -2,9 +2,6 @@
 
 namespace ContainRs.Api.Data.Repositories;
 
-public class ConteinerRepository : BaseRepository<Conteiner>
+public class ConteinerRepository(AppDbContext dbContext) : BaseRepository<Conteiner>(dbContext)
 {
-    public ConteinerRepository(AppDbContext dbContext) : base(dbContext)
-    {
-    }
 }
